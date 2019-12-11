@@ -11,15 +11,14 @@ public class TOHA extends JPanel{
 
     static int diskStacks[][]; //we need three stacks of disks Multidimensional Array will have 3 columns ans N rows
     static int visableDisks[];   //This will keep track of the top of each stack
-    static int sourcePeg,destinationPeg; //Tracks From and To Stack number 1-3
+    static int sourceRod,destinationRod; //Tracks From and To Stack number 1-3
     static int currentDisk;//number of disk being moved (1 to n)
     static int numOfDisks; //Number of Disks on Stack
     static int screenW,screenHeight; //Dimension values based upon number of disks chosen
-    static int pegHight; //how tall should the peg be
+    static int rodHight; //how tall should the rod be
     static int Animate;
     static double estimatedNumOfMoves;
     static int currentMoveNum;
-    private BufferedImage OSC;
 
     public TOHA()
     {
@@ -57,8 +56,8 @@ public class TOHA extends JPanel{
             {
                 //Stack X
                 g.setColor(Color.BLACK); //Peg Color
-                g.fillRoundRect(j * screenW, pegHight, 5, screenHeight - pegHight, 1, 1);
-                g.drawString(Integer.toString(j),j * screenW,pegHight-20);
+                g.fillRoundRect(j * screenW, rodHight, 5, screenHeight - rodHight, 1, 1);
+                g.drawString(Integer.toString(j),j * screenW,rodHight-20);
                 //Displays the Disks on the Stacks
                 for (i = 0; i <= visableDisks[j - 1]; i++) {
                     disk = diskStacks[j - 1][i];
@@ -71,7 +70,7 @@ public class TOHA extends JPanel{
         g.drawString("Estimated Number Of Moves : " + Double.toString(estimatedNumOfMoves) ,screenW-150,screenHeight-300);
         g.drawString("Current Move Number       : " + Integer.toString(currentMoveNum) ,screenW-150,screenHeight-280);
 
-        g.drawString("Move Disk " + Integer.toString(currentDisk) + " from Peg " +Integer.toString(sourcePeg) + " to Peg "+ Integer.toString(destinationPeg) ,screenW-50,screenHeight+30);
+        g.drawString("Move Disk " + Integer.toString(currentDisk) + " from Peg " +Integer.toString(sourceRod) + " to Peg "+ Integer.toString(destinationRod) ,screenW-50,screenHeight+30);
         }
 
 
@@ -91,47 +90,47 @@ public class TOHA extends JPanel{
     {
         currentMoveNum++;
         int x,y,delta,NegPos;
-        currentDisk=pop(sourcePeg);
-        x=sourcePeg*screenW;
-        y=screenHeight-(visableDisks[sourcePeg-1]+1)*10; //Moving up
-        for(;y>pegHight-20;y-=8)
+        currentDisk=pop(sourceRod);
+        x=sourceRod*screenW;
+        y=screenHeight-(visableDisks[sourceRod-1]+1)*10; //Moving up
+        for(;y>rodHight-20;y-=8)
             if(Animate ==1) //controls animation
                 displayFrame(g, x, y);
 
-        y=pegHight-20;
-        delta=destinationPeg*screenW-x;
+        y=rodHight-20;
+        delta=destinationRod*screenW-x;
         NegPos=delta/Math.abs(delta);
-        for(;Math.abs(x-destinationPeg*screenW)>=24;x+=NegPos*12) //Moving Left to Right or Right to Left
+        for(;Math.abs(x-destinationRod*screenW)>=24;x+=NegPos*12) //Moving Left to Right or Right to Left
             if(Animate ==1)
                 displayFrame(g, x, y);
-        x=destinationPeg*screenW;
-        for(;y<screenHeight-(visableDisks[destinationPeg-1]+1)*10;y+=8) //Moving down over Peg
+        x=destinationRod*screenW;
+        for(;y<screenHeight-(visableDisks[destinationRod-1]+1)*10;y+=8) //Moving down over Peg
             if(Animate == 1)
                 displayFrame(g, x, y);
-        push(destinationPeg,currentDisk);
+        push(destinationRod,currentDisk);
         displaySingleAnimationFrame(g);
 
 
     }
 
-    void solve(Graphics g, int diskNum, int pegA, int pegB, int pegC) throws InterruptedException //recursive call to solve puzzle
+    void solve(Graphics g, int diskNum, int rodA, int rodB, int rodC) throws InterruptedException //recursive call to solve puzzle
     {
         if(diskNum ==0)
         {}
         else
         {
-            solve(g,diskNum-1,pegA,pegC,pegB);
+            solve(g,diskNum-1,rodA,rodC,rodB);
 
             if(Animate == 0) {
                 displaySingleAnimationFrame(g);
                 Thread.sleep(200);
             }
-            sourcePeg=pegA;
-            destinationPeg=pegC;
+            sourceRod=rodA;
+            destinationRod=rodC;
             visulizer(g);
             if(Animate ==1)
                 Thread.sleep(80);
-            solve(g,diskNum-1,pegB,pegA,pegC);
+            solve(g,diskNum-1,rodB,rodA,rodC);
 
         }
 
@@ -178,7 +177,7 @@ public class TOHA extends JPanel{
         fr.setVisible(true);
         screenW=puzzle.getWidth()/4;
         screenHeight=puzzle.getHeight()-50;
-        pegHight=screenHeight-numOfDisks*13;
+        rodHight=screenHeight-numOfDisks*13;
 //start solving
         try{
             puzzle.solve(puzzle.getGraphics(),numOfDisks,1,2,3);
