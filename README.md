@@ -1,10 +1,12 @@
-# Overview
+# Recursive Methods in Java to solve Towers Of Hanoi Puzzle
+
+## Overview
 
 Recursion is a process in which a function calls itself as a subroutine. This allows the function to be repeated several times, since it calls itself during its execution. Functions that incorporate recursion are called recursive functions.
 
 Recursion is often seen as an efficient method of programming since it requires the least amount of code to perform the necessary functions. However, recursion must be incorporated carefully, since it can lead to an infinite loop if no condition is met that will terminate the function.
 
-A classic example of recursion is the **Towers Of Hanoi** Puzzle. In the Towers of Hanoi puzzle, we have three rods labled Source, Dest, Aux and n numbered discs that fit onto the poles. In the default state, the discs are placed initially stacked on the Source rod, in order from largest (disc n) at the bottom to smallest (disc 1) at the top. The task is to move all n discs to the Dest pole.
+A classic example of recursion is the **Towers Of Hanoi** Puzzle. In the Towers of Hanoi puzzle, we have three rods labled Source, Dest, Aux and n numbered discs that fit onto the poles. In the default state, the discs are placed initially stacked on the Source rod, in order from largest (disc n) at the bottom to smallest (disc 1) at the top. The task is to move all n discs to the Dest rod.
 
 Movment / placement of discs must obey the following rules:
 - Move only one disc at a time.
@@ -20,10 +22,11 @@ The code outlined in this workshop implements this solution using a this recursi
 As the number of discs increase, the number of moves required to complete the puzzle grows exponentialy. In general,  this can be written as **M = 2^n − 1** where n is the number of discs 
 
 ### Let's get started
-In this workshop, we will build an animated representation of the Towers of Hanoi.  First, create a new blank project in your IDE of choice. Once you have your project, create a new java class file and name it **TOHA**
+In this workshop, we will build an animated representation of the **Towers of Hanoi**.  First, create a new blank project in your IDE of choice. Once you have your project, create a new java class file and name it **TOHA**
 
 Now that you have your class file created let's start by importing in the libraries we will need for this solution.
-add the following lines of code to the top of your class file.
+
+Add the following lines of code to the top of your class file.
 ~~~~
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -34,7 +37,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 ~~~~
 Next lets create the class header.  Notice that we will be extending the JPanel Java class
-addd the following code to your class file
+
+Add the following code to your class file
 ~~~~
 public class TOHA extends JPanel{
 }
@@ -97,6 +101,7 @@ Color getColor(int diskNum)
 
 The next method we will add if used to display a single frame of our animation of disk movment.  here we are using the Java 
 Graphics class to create the disks and rods using fillroundRect and fillRect methods.  Each disc is numbered using drawString.
+
 Add the following code to your file.
 
 ~~~~
@@ -127,6 +132,7 @@ Add the following code to your file.
 ~~~~
 
 Next we add the method used to setup the current displayframe.
+
 Add the following code to your file.
 
 ~~~~
@@ -143,6 +149,7 @@ void displayFrame(Graphics g,int x,int y)
 ~~~~
 The last animation method we will add is the visulizer method.  This method is responsible for the actual movment of the discs
 on screen by orcastrating the calls to the previous graphics methods displaySingleAnimationFrame and displayFrame.  This is also where we use out static variable Animate to control if we show the disc movment or not.  1= yes 0 = no
+
 Add the following code to your file.
 ~~~~
 void visulizer(Graphics g) //graphics function to show the movement of the disk from peg to peg
