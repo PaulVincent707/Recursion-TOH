@@ -5,7 +5,6 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.awt.image.BufferedImage;
 
 public class TOHA extends JPanel{
 
@@ -16,9 +15,9 @@ public class TOHA extends JPanel{
     static int numOfDisks; //Number of Disks on Stack
     static int screenW,screenHeight; //Dimension values based upon number of disks chosen
     static int rodHight; //how tall should the rod be
-    static int Animate;
-    static double estimatedNumOfMoves;
-    static int currentMoveNum;
+    static int Animate; //controls if the animation will run or not
+    static double estimatedNumOfMoves; //calculated move count
+    static int currentMoveNum;//holds current move count
 
     public TOHA()
     {
@@ -26,12 +25,12 @@ public class TOHA extends JPanel{
         visableDisks=new int[3];
     }
 
-    static void push(int to, int diskNum) //Push operation to add a disk to a stack(tower)
+    static void push(int to, int diskNum) //Push operation to add a disc to a rod(tower)
     {
         diskStacks[to-1][++visableDisks[to-1]]=diskNum;
     }
 
-    static int pop(int from) //pop operation to remove the top disck from the stack(Tower)
+    static int pop(int from) //pop operation to remove the top disc from the rod(Tower)
     {
         return(diskStacks[from-1][visableDisks[from-1]--]);
     }
@@ -39,9 +38,9 @@ public class TOHA extends JPanel{
     Color getColor(int diskNum)
     {
         Random randomColorValue = new Random(diskNum); //use DiskNum as seed
-        float r = randomColorValue.nextFloat();
-        float g = randomColorValue.nextFloat();
-        float b = randomColorValue.nextFloat();
+        int r = randomColorValue.nextInt(255);
+        int g = randomColorValue.nextInt(255);
+        int b = randomColorValue.nextInt(255);
 
         //using the new Red Green Blue data values, generate disk color
         Color currentDisk = new Color(r,g,b);
