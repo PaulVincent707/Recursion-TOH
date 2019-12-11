@@ -262,5 +262,18 @@ public static void main(String[] args)
         }catch(Exception ex){}
     }
 ~~~~
+Screen Shots from running solution.
 
+### Dialogs
+Disc Number Input
+![Disc Number](/images/ChooseDiscNum.png)
+
+Animation Choice
+![Animation Choice](/images/Animation.png)
+
+### Animation Stills
+
+![Animation Still](/images/Discs-1.png)
+
+![Animation Still](/images/Discs-2.png)
 
