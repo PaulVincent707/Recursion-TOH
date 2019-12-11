@@ -53,7 +53,7 @@ static int Animate; //controls if the animation will run or not
 static double estimatedNumOfMoves; //calculated move count 
 static int currentMoveNum;//holds current move count
 ~~~~ 
- Now let's addin the default constructor for your Class TOHA. as you can see the default is setting up the structures for discs and towers.
+ Now let's add in the default constructor for your Class TOHA. as you can see the default is setting up the structures for discs and towers. Add the following code to you file.
  ~~~~
   public TOHA()
     {
@@ -62,7 +62,9 @@ static int currentMoveNum;//holds current move count
     }
 ~~~~
 
-Next we need to ass in two methods, push and pop.  these will be used to add dics to a rod and pop a disc off a rod.
+Next we need to add in two methods, push and pop.  These will be used to add discs to a rod and pop a disc off a rod.
+
+Add the following code to you file.
 
 ~~~~
     static void push(int to, int diskNum) //Push operation to add a disc to a rod(tower)
@@ -75,6 +77,56 @@ Next we need to ass in two methods, push and pop.  these will be used to add dic
         return(diskStacks[from-1][visableDisks[from-1]--]);
     }
 ~~~~
+The next method we will add is our getColor method.  This method gets a color for a given disk number randomly
+
+Add the following code to you file.
+
+~~~~
+Color getColor(int diskNum)
+    {
+        Random randomColorValue = new Random(diskNum); //use DiskNum as seed
+        int r = randomColorValue.nextInt(255);
+        int g = randomColorValue.nextInt(255);
+        int b = randomColorValue.nextInt(255);
+
+        //using the new Red Green Blue data values, generate disk color
+        Color currentDisk = new Color(r,g,b);
+        return currentDisk;
+    }
+~~~~
+
+The next method we will add if used to display a single frame of our animation of disk movment.  here we are using the Java 
+Graphics class to create the disks and rods using fillroundRect and fillRect methods.  Each disc is numbered using drawString.
+Add the following code to your file.
+
+~~~~
+ void displaySingleAnimationFrame(Graphics g)
+    {
+        int j,i,disk;
+        g.clearRect(0,0,getWidth(),getHeight());
+            for (j = 1; j <= 3; j++) //Displays Three Stacks
+            {
+                //Stack X
+                g.setColor(Color.BLACK); //Peg Color
+                g.fillRoundRect(j * screenW, rodHight, 5, screenHeight - rodHight, 1, 1);
+                g.drawString(Integer.toString(j),j * screenW,rodHight-20);
+                //Displays the Disks on the Stacks
+                for (i = 0; i <= visableDisks[j - 1]; i++) {
+                    disk = diskStacks[j - 1][i];
+                    g.setColor(getColor(disk));
+                    g.fillRect(j * screenW - 15 - disk * 5, screenHeight - (i + 1) * 10, 35 + disk * 10, 10);
+                    g.setColor(Color.BLACK);
+                    g.drawString(Integer.toString(disk),j * screenW - disk, screenHeight - (i) * 10);
+                }
+            }
+        g.drawString("Estimated Number Of Moves : " + Double.toString(estimatedNumOfMoves) ,screenW-150,screenHeight-300);
+        g.drawString("Current Move Number       : " + Integer.toString(currentMoveNum) ,screenW-150,screenHeight-280);
+
+        g.drawString("Move Disk " + Integer.toString(currentDisk) + " from Peg " +Integer.toString(sourceRod) + " to Peg "+ Integer.toString(destinationRod) ,screenW-50,screenHeight+30);
+    }
+~~~~
+
+Next we add another method used to setup the current displayframe
 
 
 
