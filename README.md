@@ -6,7 +6,7 @@ Recursion is a process in which a function calls itself as a subroutine. This al
 
 Recursion is often seen as an efficient method of programming since it requires the least amount of code to perform the necessary functions. However, recursion must be incorporated carefully, since it can lead to an infinite loop if no condition is met that will terminate the function.
 
-A classic example of recursion is the **Towers Of Hanoi** Puzzle. In the Towers of Hanoi puzzle, we have three rods labeled  Source, Dest, Aux and n numbered discs that fit onto the poles. In the default state, the discs are placed initially stacked on the Source rod, in order from largest (disc n) at the bottom to smallest (disc 1) at the top. The task is to move all n discs to the Dest rod.
+A classic example of recursion is the **Towers Of Hanoi** Puzzle invented by the French mathematician Édouard Lucas in 1883. In the Towers of Hanoi puzzle, we have three rods labeled  Source, Dest, Aux and n numbered discs that fit onto the poles. In the default state, the discs are placed initially stacked on the Source rod, in order from largest (disc n) at the bottom to smallest (disc 1) at the top. The task is to move all n discs to the Dest rod.
 
 Movement  / placement of discs must obey the following rules:
 - Move only one disc at a time.
