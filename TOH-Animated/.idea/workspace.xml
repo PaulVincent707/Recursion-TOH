@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="06a708c6-e39e-4b69-94d2-a2ecfadab903" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/TOHA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TOHA.java" afterDir="false" />
-    </list>
+    <list default="true" id="06a708c6-e39e-4b69-94d2-a2ecfadab903" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,8 +43,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="45" />
-    <option name="y" value="50" />
+    <option name="x" value="2611" />
+    <option name="y" value="588" />
     <option name="width" value="2012" />
     <option name="height" value="1040" />
   </component>
@@ -79,7 +77,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1576040330625" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1576041433331" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -121,16 +119,15 @@
       <option name="presentableId" value="Default" />
       <updated>1575914822135</updated>
       <workItem from="1575914826653" duration="26252000" />
-      <workItem from="1576011771575" duration="8813000" />
+      <workItem from="1576011771575" duration="9535000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35065000" />
+    <option name="totallyTimeSpent" value="35787000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="45" y="50" width="2012" height="1040" extended-state="0" />
-    <editor active="true" />
+    <frame x="2611" y="588" width="2012" height="1040" extended-state="0" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24619289" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
