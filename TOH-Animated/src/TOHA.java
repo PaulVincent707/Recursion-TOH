@@ -69,8 +69,8 @@ public class TOHA extends JPanel{
         g.drawString("Estimated Number Of Moves : " + Double.toString(estimatedNumOfMoves) ,screenW-150,screenHeight-300);
         g.drawString("Current Move Number       : " + Integer.toString(currentMoveNum) ,screenW-150,screenHeight-280);
 
-        g.drawString("Move Disk " + Integer.toString(currentDisk) + " from Peg " +Integer.toString(sourceRod) + " to Peg "+ Integer.toString(destinationRod) ,screenW-50,screenHeight+30);
-        }
+        g.drawString("Move Disk " + Integer.toString(currentDisk) + " from Rod " +Integer.toString(sourceRod) + " to Rod "+ Integer.toString(destinationRod) ,screenW-50,screenHeight+30);
+    }
 
 
 
@@ -85,7 +85,7 @@ public class TOHA extends JPanel{
         }catch(InterruptedException ex){}
     }
 
-    void visulizer(Graphics g) //graphics function to show the movement of the disk from peg to peg
+    void visualizer(Graphics g) //graphics function to show the movement of the disk from peg to peg
     {
         currentMoveNum++;
         int x,y,delta,NegPos;
@@ -118,18 +118,18 @@ public class TOHA extends JPanel{
         {}
         else
         {
-            solve(g,diskNum-1,rodA,rodC,rodB);
+            solve(g,diskNum-1,rodA,rodC,rodB); //Step 1
 
             if(Animate == 0) {
                 displaySingleAnimationFrame(g);
                 Thread.sleep(200);
             }
-            sourceRod=rodA;
-            destinationRod=rodC;
-            visulizer(g);
+            sourceRod=rodA; //Step 2
+            destinationRod=rodC; //Step 2
+            visualizer(g); //Step 2
             if(Animate ==1)
                 Thread.sleep(80);
-            solve(g,diskNum-1,rodB,rodA,rodC);
+            solve(g,diskNum-1,rodB,rodA,rodC); //Step3
 
         }
 
@@ -140,8 +140,8 @@ public class TOHA extends JPanel{
 
         String s = "0";
         numOfDisks = 0;
-        while(numOfDisks<1 | numOfDisks > 20) {
-            s = JOptionPane.showInputDialog("Enter number of disks(1-20)");
+        while(numOfDisks<1 | numOfDisks > 20) { //max disk number is 20
+            s = JOptionPane.showInputDialog(null,"Enter number of disks(1-20)","Towers Of Hanoi",1); //Get disc number & validate input
             if(!s.isEmpty())
                 numOfDisks = Integer.parseInt(s);
         }
@@ -150,12 +150,12 @@ public class TOHA extends JPanel{
         String Choice = (String) JOptionPane.showInputDialog(null, "Show Animation?",
                 "Towers Of Hanoi", JOptionPane.QUESTION_MESSAGE, null,
                 choices,
-                choices[1]);
+                choices[1]);//Gets input for controlling animation
         if(Choice == "Yes")
             Animate = 1;
         else
             Animate = 0;
-        TOHA puzzle=new TOHA();
+        TOHA puzzle=new TOHA(); //crate a new object of our class
         for(int i=0;i<3;i++) //Clearing all Pegs
             visableDisks[i]=-1;
         for(int i=numOfDisks;i>0;i--) //setup all defined disks on Peg 1
@@ -163,13 +163,13 @@ public class TOHA extends JPanel{
             push(1,i);
         }
 
-        JFrame fr=new JFrame("Towers Of Hanoi");
-        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JFrame fr=new JFrame("Towers Of Hanoi"); //Create JFrame to hold our Animation
+        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Tells the runtime to exit if we close the Frame
         fr.setLayout(new BorderLayout());
         if(numOfDisks >= 10)
-            fr.setSize(numOfDisks*70,numOfDisks*40);
+            fr.setSize(numOfDisks*70,numOfDisks*40); //Dynamic frame size based on number of discs
         else
-            fr.setSize(700,400);
+            fr.setSize(700,400); //< 10 discs create static size otherwise the Frame is to small
         fr.add(puzzle);
         puzzle.setSize(fr.getSize());
         fr.setLocation(300,200);
@@ -177,9 +177,8 @@ public class TOHA extends JPanel{
         screenW=puzzle.getWidth()/4;
         screenHeight=puzzle.getHeight()-50;
         rodHight=screenHeight-numOfDisks*13;
-//start solving
         try{
-            puzzle.solve(puzzle.getGraphics(),numOfDisks,1,2,3);
+            puzzle.solve(puzzle.getGraphics(),numOfDisks,1,2,3); //Start the solve
 
         }catch(Exception ex){}
     }
