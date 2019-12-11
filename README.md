@@ -126,7 +126,134 @@ Add the following code to your file.
     }
 ~~~~
 
-Next we add another method used to setup the current displayframe
+Next we add the method used to setup the current displayframe.
+Add the following code to your file.
 
+~~~~
+void displayFrame(Graphics g,int x,int y)
+    {
+        try{
+            displaySingleAnimationFrame(g);
+            g.setColor(getColor(currentDisk));
+            g.fillRect(x-15-currentDisk*5,y-10,35+currentDisk*10,10);
+            Thread.sleep(numOfDisks*5); //Sudo Framerate
+
+        }catch(InterruptedException ex){}
+    }
+~~~~
+The last animation method we will add is the visulizer method.  This method is responsible for the actual movment of the discs
+on screen by orcastrating the calls to the previous graphics methods displaySingleAnimationFrame and displayFrame.  This is also where we use out static variable Animate to control if we show the disc movment or not.  1= yes 0 = no
+Add the following code to your file.
+~~~~
+void visulizer(Graphics g) //graphics function to show the movement of the disk from peg to peg
+    {
+        currentMoveNum++;
+        int x,y,delta,NegPos;
+        currentDisk=pop(sourceRod);
+        x=sourceRod*screenW;
+        y=screenHeight-(visableDisks[sourceRod-1]+1)*10; //Moving up
+        for(;y>rodHight-20;y-=8)
+            if(Animate ==1) //controls animation
+                displayFrame(g, x, y);
+
+        y=rodHight-20;
+        delta=destinationRod*screenW-x;
+        NegPos=delta/Math.abs(delta);
+        for(;Math.abs(x-destinationRod*screenW)>=24;x+=NegPos*12) //Moving Left to Right or Right to Left
+            if(Animate ==1)
+                displayFrame(g, x, y);
+        x=destinationRod*screenW;
+        for(;y<screenHeight-(visableDisks[destinationRod-1]+1)*10;y+=8) //Moving down over Peg
+            if(Animate == 1)
+                displayFrame(g, x, y);
+        push(destinationRod,currentDisk);
+        displaySingleAnimationFrame(g);
+
+
+    }
+~~~~
+
+ok after all that, we have finally gotten to our recursive method solve.  solve takes in the graphics object that represents the visual state of the move, along with the current disc number, and rods to work with.  Notice that in the definition of this method, solve is calling itself twice.  This corolates to the algorythm we defined above for solving the puzzle.
+- Step 1 − Move n-1 disks from source to aux
+- Step 2 − Move nth disk from source to dest
+- Step 3 − Move n-1 disks from aux to dest
+
+Add the following code to your file.
+
+~~~~
+void solve(Graphics g, int diskNum, int rodA, int rodB, int rodC) throws InterruptedException //recursive call to solve puzzle
+    {
+        if(diskNum ==0)
+        {}
+        else
+        {
+            solve(g,diskNum-1,rodA,rodC,rodB); //Step 1
+
+            if(Animate == 0) {
+                displaySingleAnimationFrame(g);
+                Thread.sleep(200);
+            }
+            sourceRod=rodA; //Step 2
+            destinationRod=rodC; //Step 2
+            visulizer(g); //Step 2
+            if(Animate ==1)
+                Thread.sleep(80);
+            solve(g,diskNum-1,rodB,rodA,rodC); //Step3
+
+        }
+
+    }
+~~~~
+ok now all that is left is to add our Main application entry point.  This allows us to run the applet as an application.  Alternatly we could use a separate runner class to hold Main and import our TOHA class.  This way is fine for our workshop.  
+Add the following code to your file.  After this final code, you should have fully functional **Towers Of Hanoi** Puzzle.
+~~~~
+public static void main(String[] args)
+    {
+
+        String s = "0";
+        numOfDisks = 0;
+        while(numOfDisks<1 | numOfDisks > 20) { //max disk number is 20
+            s = JOptionPane.showInputDialog(null,"Enter number of disks(1-20)","Towers Of Hanoi",1); //Get disc number & validate input
+            if(!s.isEmpty())
+                numOfDisks = Integer.parseInt(s);
+        }
+        estimatedNumOfMoves = Math.pow(2.0,(double)numOfDisks)-1; 
+        String[] choices = { "Yes", "No" };
+        String Choice = (String) JOptionPane.showInputDialog(null, "Show Animation?", 
+                "Towers Of Hanoi", JOptionPane.QUESTION_MESSAGE, null,
+                choices,
+                choices[1]);//Gets input for controlling animation
+        if(Choice == "Yes")
+            Animate = 1;
+        else
+            Animate = 0;
+        TOHA puzzle=new TOHA(); //crate a new object of our class
+        for(int i=0;i<3;i++) //Clearing all Pegs
+            visableDisks[i]=-1;
+        for(int i=numOfDisks;i>0;i--) //setup all defined disks on Peg 1
+        {
+            push(1,i);
+        }
+
+        JFrame fr=new JFrame("Towers Of Hanoi"); //Create JFrame to hold our Animation
+        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Tells the runtime to exit if we close the Frame
+        fr.setLayout(new BorderLayout());
+        if(numOfDisks >= 10)
+            fr.setSize(numOfDisks*70,numOfDisks*40); //Dynamic frame size based on number of discs
+        else
+            fr.setSize(700,400); //< 10 discs create static size otherwise the Frame is to small
+        fr.add(puzzle);
+        puzzle.setSize(fr.getSize());
+        fr.setLocation(300,200);
+        fr.setVisible(true);
+        screenW=puzzle.getWidth()/4;
+        screenHeight=puzzle.getHeight()-50;
+        rodHight=screenHeight-numOfDisks*13;
+        try{
+            puzzle.solve(puzzle.getGraphics(),numOfDisks,1,2,3); //Start the solve 
+
+        }catch(Exception ex){}
+    }
+~~~~
 
 
