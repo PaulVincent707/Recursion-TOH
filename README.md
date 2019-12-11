@@ -6,20 +6,20 @@ Recursion is a process in which a function calls itself as a subroutine. This al
 
 Recursion is often seen as an efficient method of programming since it requires the least amount of code to perform the necessary functions. However, recursion must be incorporated carefully, since it can lead to an infinite loop if no condition is met that will terminate the function.
 
-A classic example of recursion is the **Towers Of Hanoi** Puzzle. In the Towers of Hanoi puzzle, we have three rods labled Source, Dest, Aux and n numbered discs that fit onto the poles. In the default state, the discs are placed initially stacked on the Source rod, in order from largest (disc n) at the bottom to smallest (disc 1) at the top. The task is to move all n discs to the Dest rod.
+A classic example of recursion is the **Towers Of Hanoi** Puzzle. In the Towers of Hanoi puzzle, we have three rods labeled  Source, Dest, Aux and n numbered discs that fit onto the poles. In the default state, the discs are placed initially stacked on the Source rod, in order from largest (disc n) at the bottom to smallest (disc 1) at the top. The task is to move all n discs to the Dest rod.
 
-Movment / placement of discs must obey the following rules:
+Movement  / placement of discs must obey the following rules:
 - Move only one disc at a time.
 - Never place a larger disc on a smaller one.
 
 ### Recursion provides us with the perfect solution: 
 
-The code outlined in this workshop implements this solution using a this recursive algorythm.
+The code outlined in this workshop implements this solution using a this recursive algorithm.
 - Step 1 − Move n-1 disks from source to aux
 - Step 2 − Move nth disk from source to dest
 - Step 3 − Move n-1 disks from aux to dest
 
-As the number of discs increase, the number of moves required to complete the puzzle grows exponentialy. In general,  this can be written as **M = 2^n − 1** where n is the number of discs 
+As the number of discs increase, the number of moves required to complete the puzzle grows exponentially. In general,  this can be written as **M = 2^n − 1** where n is the number of discs 
 
 ### Let's get started
 In this workshop, we will build an animated representation of the **Towers of Hanoi**.  First, create a new blank project in your IDE of choice. Once you have your project, create a new java class file and name it **TOHA**
@@ -36,7 +36,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 ~~~~
-Next lets create the class header.  Notice that we will be extending the JPanel Java class
+Next let's create the class header.  Notice that we will be extending the JPanel Java class
 
 Add the following code to your class file
 ~~~~
@@ -99,7 +99,7 @@ Color getColor(int diskNum)
     }
 ~~~~
 
-The next method we will add if used to display a single frame of our animation of disk movment.  here we are using the Java 
+The next method we will add if used to display a single frame of our animation of disk movement.  here we are using the Java 
 Graphics class to create the disks and rods using fillroundRect and fillRect methods.  Each disc is numbered using drawString.
 
 Add the following code to your file.
@@ -147,12 +147,12 @@ void displayFrame(Graphics g,int x,int y)
         }catch(InterruptedException ex){}
     }
 ~~~~
-The last animation method we will add is the visulizer method.  This method is responsible for the actual movment of the discs
-on screen by orcastrating the calls to the previous graphics methods displaySingleAnimationFrame and displayFrame.  This is also where we use out static variable Animate to control if we show the disc movment or not.  1= yes 0 = no
+The last animation method we will add is the visualizer  method.  This method is responsible for the actual movement  of the discs
+on screen by orchestrating the calls to the previous graphics methods displaySingleAnimationFrame and displayFrame.  This is also where we use out static variable Animate to control if we show the disc movement  or not.  1= yes 0 = no
 
 Add the following code to your file.
 ~~~~
-void visulizer(Graphics g) //graphics function to show the movement of the disk from peg to peg
+void visualizer(Graphics g) //graphics function to show the movement of the disk from peg to peg
     {
         currentMoveNum++;
         int x,y,delta,NegPos;
@@ -180,7 +180,7 @@ void visulizer(Graphics g) //graphics function to show the movement of the disk 
     }
 ~~~~
 
-ok after all that, we have finally gotten to our recursive method solve.  solve takes in the graphics object that represents the visual state of the move, along with the current disc number, and rods to work with.  Notice that in the definition of this method, solve is calling itself twice.  This corolates to the algorythm we defined above for solving the puzzle.
+ok after all that, we have finally gotten to our recursive method solve.  solve takes in the graphics object that represents the visual state of the move, along with the current disc number, and rods to work with.  Notice that in the definition of this method, solve is calling itself twice.  This correlates  to the algorithm  we defined above for solving the puzzle.
 - Step 1 − Move n-1 disks from source to aux
 - Step 2 − Move nth disk from source to dest
 - Step 3 − Move n-1 disks from aux to dest
@@ -202,7 +202,7 @@ void solve(Graphics g, int diskNum, int rodA, int rodB, int rodC) throws Interru
             }
             sourceRod=rodA; //Step 2
             destinationRod=rodC; //Step 2
-            visulizer(g); //Step 2
+            visualizer(g); //Step 2
             if(Animate ==1)
                 Thread.sleep(80);
             solve(g,diskNum-1,rodB,rodA,rodC); //Step3
@@ -211,7 +211,7 @@ void solve(Graphics g, int diskNum, int rodA, int rodB, int rodC) throws Interru
 
     }
 ~~~~
-ok now all that is left is to add our Main application entry point.  This allows us to run the applet as an application.  Alternatly we could use a separate runner class to hold Main and import our TOHA class.  This way is fine for our workshop.  
+ok now all that is left is to add our Main application entry point.  This allows us to run the applet as an application.  Alternately  we could use a separate runner class to hold Main and import our TOHA class.  This way is fine for our workshop.  
 Add the following code to your file.  After this final code, you should have fully functional **Towers Of Hanoi** Puzzle.
 ~~~~
 public static void main(String[] args)
