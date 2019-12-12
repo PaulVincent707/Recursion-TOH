@@ -57,7 +57,7 @@ static int Animate; //controls if the animation will run or not
 static double estimatedNumOfMoves; //calculated move count 
 static int currentMoveNum;//holds current move count
 ~~~~ 
- Now let's add in the default constructor for your Class TOHA. as you can see the default is setting up the structures for discs and towers. Add the following code to you file.
+ Now let's add in the default constructor for your Class TOHA. as you can see the default is setting up the structures for discs and towers. Add the following code to your file.
  ~~~~
   public TOHA()
     {
